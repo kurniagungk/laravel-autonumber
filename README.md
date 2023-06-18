@@ -13,7 +13,7 @@ Laravel package to create autonumber for Eloquent model
 You can install the package via composer:
 
 ```
-composer require kurniagungk/laravel-autonumber
+composer require alfa6661/laravel-autonumber
 ```
 
 Register the ServiceProvider in `config/app.php`
