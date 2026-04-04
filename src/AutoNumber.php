@@ -58,7 +58,7 @@ class AutoNumber
         $autoNumber = AutoNumberModel::where('name', $name)->first();
 
         if ($autoNumber === null) {
-            $autoNumber = new AutoNumberModel([
+            $autoNumber = AutoNumberModel::make([
                 'name' => $name,
                 'number' => 1,
             ]);
