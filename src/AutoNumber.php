@@ -6,6 +6,7 @@ use Alfa6661\AutoNumber\Models\AutoNumber as AutoNumberModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
 class AutoNumber
@@ -55,20 +56,24 @@ class AutoNumber
      */
     private function getNextNumber($name)
     {
-        $autoNumber = AutoNumberModel::where('name', $name)->first();
+        $autoNumber = DB::table('auto_numbers')->where('name', $name)->first();
 
         if ($autoNumber === null) {
-            $autoNumber = AutoNumberModel::make([
+            DB::table('auto_numbers')->insert([
                 'name' => $name,
                 'number' => 1,
             ]);
+
+            $number = 1;
         } else {
-            $autoNumber->number += 1;
+            $number = $autoNumber->number + 1;
+
+            DB::table('auto_numbers')
+                ->where('name', $name)
+                ->update(['number' => $number]);
         }
 
-        $autoNumber->save();
-
-        return $autoNumber->number;
+        return $number;
     }
 
     /**

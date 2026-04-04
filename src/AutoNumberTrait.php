@@ -13,7 +13,15 @@ trait AutoNumberTrait
      */
     public static function bootAutoNumberTrait()
     {
-        static::observe(AutoNumberObserver::class);
+        static::creating(function ($model) {
+            app(\Alfa6661\AutoNumber\AutoNumber::class)->generate($model);
+        });
+
+        static::updating(function ($model) {
+            if (config('autonumber.onUpdate', false)) {
+                app(\Alfa6661\AutoNumber\AutoNumber::class)->generate($model);
+            }
+        });
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Alfa6661\AutoNumber;
 
-use Alfa6661\AutoNumber\Observers\AutoNumberObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AutoNumberServiceProvider extends ServiceProvider
@@ -30,8 +29,8 @@ class AutoNumberServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(AutoNumberObserver::class, function ($app) {
-            return new AutoNumberObserver(new AutoNumber());
+        $this->app->singleton(AutoNumber::class, function ($app) {
+            return new AutoNumber();
         });
     }
 }
